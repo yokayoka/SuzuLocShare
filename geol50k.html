@@ -47,11 +47,10 @@
             var lyrCSMap;
             var lyrGoogleHybrid;
             var lyrGSI60th;
-            var geol50kLayer;
-            // var detailLayer;
-            // var labelLayer;
-            // var lineLayer;
-            var landslideLayer;
+            var detailLayer;
+            var labelLayer;
+            var lineLayer;
+            // var LandslideWMS;
             var mrkCurrentLocation;
             var popHome;
             var ctlZoom;
@@ -92,9 +91,8 @@
                         "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>",
                     }
                 );
-
-                //5万分の1地質図
-                geol50kLayer = L.tileLayer.betterWms('https://gbank.gsj.jp/geonavi/maptile/wmts/1.0.0/G50_10_003004006007suzumisaki-notoiida/default/EPSG900913/{z}/{y}/{x}.png' ,{
+                //20万分の1地質図
+                detailLayer = L.tileLayer.betterWms('https://gbank.gsj.jp/ows/seamlessgeology200k_b' ,{
                     layers: 'area',
                     format: 'image/png',
                     transparent : true,
@@ -102,16 +100,26 @@
                     zIndex: 2000,
                     attribution: '<a href="https://www.gsj.jp/license/index.html" target="_blank">GSJ, AIST</a>'
                 });
-
-                //地すべり地形分布図
-                landslideLayer = L.tileLayer('https://jmapweb3v.bosai.go.jp/map/xyz/landslide/{z}/{x}/{y}.png', {
+                //地質図ラベルの表示
+                labelLayer = L.tileLayer.betterWms('https://gbank.gsj.jp/ows/seamlessgeology200k_b' ,{
+                    layers: 'label',
                     format: 'image/png',
                     transparent : true,
-                    opacity: 0.7,
-                    minZoom: 5,
-                    maxZoom: 15,
-                    attribution:  "<a href='http://www.j-shis.bosai.go.jp/JSHIS2/IMAGE/etc/landslide_v3_jp.png' target='_blank'>防災科研</a>"
+                    opacity: 1.0,
+                    zIndex: 1000,
+                    attribution: '<a href="https://www.gsj.jp/license/index.html" target="_blank">GSJ, AIST</a>'
                 });
+
+                //地質図ラインレイヤー
+                lineLayer = L.tileLayer.betterWms('https://gbank.gsj.jp/ows/seamlessgeology200k_b' ,{
+                    layers: 'line',
+                    format: 'image/png',
+                    transparent : true,
+                    opacity: 0.8,
+                    zIndex: 3000,
+                    attribution: '<a href="https://www.gsj.jp/license/index.html" target="_blank">GSJ, AIST</a>'
+                });
+
 
                 //珠洲市北部地区のCS立体図を指定
                 lyrCSMap = L.tileLayer(
@@ -131,8 +139,10 @@
                 地理院地図: lyrGSI,
                 Google高解像度: lyrGoogleHybrid,
                 国土地理院60年代写真: lyrGSI60th,
-                能登飯田: geol50kLayer,
-                地すべり地形: landslideLayer,
+                地質図: detailLayer,
+                地質図ラベル: labelLayer,
+                地質図ライン: lineLayer,
+                // 地すべり地形: LandslideWMS,
 
                 };
             
