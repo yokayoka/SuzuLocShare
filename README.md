@@ -41,7 +41,7 @@ GNU General Public License v3.0
 
 # Author
 * 大丸裕武
- -石川県立大学
- -hiromudaimaru@gmail.com
+ 石川県立大学
+ hiromudaimaru@gmail.com
 * 村上　亘
- -国立研究開発法人森林研究・整備機構森林総合研究所
+ 国立研究開発法人森林研究・整備機構森林総合研究所
