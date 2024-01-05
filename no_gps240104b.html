@@ -39,7 +39,13 @@
     <input type="text" name="loc_name" size="20" maxlength="30" id="in_loc_name">
     <h4>地点名を入力し地図上で場所をクリック下さい。<span id='input-comment'></span></h4>
     <h5><span id='url-value'></span></h5>
-    <button type="button" id="btnCopyUrl">Copy</button>
+    <p>
+        <button type="button" id="btnCopyUrl">Copy</button>
+    </p>
+    <p>
+        <!-- <a href="https://sites.google.com/view/manual4suzulocshare">ヘルプ</a> -->
+        <button type="button" id="btnHelpUrl">使い方</button>
+    </p>
   </div>
   <div id="mapdiv" class="col-md-12"></div>
   <script src="src/draw_houkai.js"></script>
@@ -302,8 +308,15 @@
         $textarea.remove();
         $("#input-comment").html('<p>メールやSNSにペーストして場所を共有できます</p>');
       });
+
+      $("#btnHelpUrl").click(function () {
+        //マニュアルサイトを表示
+        window.location = "https://sites.google.com/view/manual4suzulocshare";
+      });
     });
 
+
+    
     function LatLngToArrayString(ll) {
       // console.log(ll);
       return "[" + ll.lat.toFixed(5) + ", " + ll.lng.toFixed(5) + "]";
