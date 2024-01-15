@@ -1,7 +1,9 @@
 # ＣＳ立体図上で位置情報を共有するサイト（2024年能登半島地震災害支援に向けて）
 ### 注意
 SuzuLocShare の最新版は以下の[新しいレポジトリ](https://github.com/riskreduction/SuzuLocShare.git)に移動しました。
+
 https://github.com/riskreduction/SuzuLocShare.git
+
 以後、本レポジトリの更新は行わず、新レポジトリで更新を行います。
 地図上での位置情報共有機能を利用したい方は、[新サイトのindex.html](https://riskreduction.github.io/SuzuLocShare/)にアクセスしてください。
 https://riskreduction.github.io/SuzuLocShare/
