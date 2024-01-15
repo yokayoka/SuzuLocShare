@@ -1,4 +1,11 @@
 # ＣＳ立体図上で位置情報を共有するサイト（2024年能登半島地震災害支援に向けて）
+### 注意
+SuzuLocShare の最新版は以下の[新しいレポジトリ](https://github.com/riskreduction/SuzuLocShare.git)に移動しました。
+https://github.com/riskreduction/SuzuLocShare.git
+以後、本レポジトリの更新は行わず、新レポジトリで更新を行います。
+地図上での位置情報共有機能を利用したい方は、[新サイトのindex.html](https://riskreduction.github.io/SuzuLocShare/)にアクセスしてください。
+https://riskreduction.github.io/SuzuLocShare/
+
 ## 本サイトを作成した理由
 石川県立大学環境科学科流域環境学研究室では、2023年5月に珠洲地方で発生した地震が、山地の土砂災害に与えた影響について研究活動を行ってきました。
 この研究の過程で現地の地形的特徴を把握するうえでCS立体図が大変役に立ちました。珠洲地方については、石川県によって2021年に航空レーザー測量が行われて、0.5mメッシュの詳細な地形データが整備されていました。
