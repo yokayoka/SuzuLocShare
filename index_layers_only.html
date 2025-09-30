@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>能登半島マップ（レイヤー参照のみ・モバイル対応）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+  <style>
+    html, body { height: 100%; margin: 0; }
+    #map { height: 100dvh; width: 100%; }
+    .leaflet-touch .leaflet-bar a { width: 42px; height: 42px; line-height: 42px; font-size: 16px; }
+    .leaflet-top.leaflet-right { z-index: 1100; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <!-- Optional: these scripts define jsonHoukai overlays if present -->
+  <script src="src/draw_houkai.js"></script>
+  <script src="src/draw_houkai_wjc.js"></script>
+  <script src="src/draw_houkai_wjw.js"></script>
+
+  <script>
+    const ini = { lat: 37.422805, lng: 137.089547, zoom: 13 };
+
+    const map = L.map('map', {
+      center: [ini.lat, ini.lng],
+      zoom: ini.zoom,
+      zoomControl: false,
+      tap: true,
+      tapTolerance: 15
+    });
+
+    const lyrbfCSMap = L.tileLayer('https://www2.ffpri.go.jp/soilmap/tile/cs_noto/{z}/{x}/{y}.png', {
+      attribution: "CSMap by FFPRI", minZoom: 8, maxZoom: 17
+    }).addTo(map);
+    const lyrafCSMap = L.tileLayer('https://rinya.geospatial.jp/tile/csmaptile_noto/{z}/{x}/{y}.png', {
+      attribution: "Forestry Agency", minZoom: 8, maxZoom: 17
+    });
+    const baseMaps = {
+      "災害前CS立体図": lyrbfCSMap,
+      "災害後CS立体図": lyrafCSMap
+    };
+
+    const lyrGSI = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/std/{z}/{x}/{y}.png",
+      { opacity: 0.3, attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGoogleHybrid = L.tileLayer("https://mt1.google.com/vt/lyrs=y&x={x}&y={y}&z={z}");
+    const lyr20240923rain_wajimatobu_0924do_sokuho = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240923rain_wajimatobu_0924do_sokuho/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyr20240923rain_wajimaseibu_0924do_sokuho = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240923rain_wajimaseibu_0924do_sokuho/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyr20240923rain_wajima_0923do_sokuho = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240923rain_wajima_0923do_sokuho/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_WajimaE240102 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102noto_wazimahigashi_0102do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_WajimaM240105 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102_noto_wazimanaka_0105do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_WajimaM240111 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102noto_wazimanaka_0111do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_WajimaW240111 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102noto_wazimanishi_0111do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_Suzu240102 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102noto_suzu_0102do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_Anamizu240105 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102_noto_anamizu_0105do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_Nanao240105 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102_noto_nanao_0105do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI_Nanao240117 = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/20240102noto_nanao_0117do/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const lyrGSI60th = L.tileLayer(
+      "https://cyberjapandata.gsi.go.jp/xyz/ort_old10/{z}/{x}/{y}.png",
+      { attribution: "<a href='https://maps.gsi.go.jp/development/ichiran.html' target='_blank'>地理院タイル</a>" }
+    );
+    const geol50kLayer = L.tileLayer('https://gbank.gsj.jp/geonavi/maptile/wmts/1.0.0/G50_10_003004006007suzumisaki-notoiida/default/EPSG900913/{z}/{y}/{x}.png', {
+      opacity: 0.7, zIndex: 2000, attribution: '<a href="https://www.gsj.jp/license/index.html" target="_blank">GSJ, AIST</a>'
+    });
+    const landslideLayer = L.tileLayer('https://jmapweb3v.bosai.go.jp/map/xyz/landslide/{z}/{x}/{y}.png', {
+      opacity: 0.7, minZoom: 5, maxZoom: 15,
+      attribution: "<a href='http://www.j-shis.bosai.go.jp/JSHIS2/IMAGE/etc/landslide_v3_jp.png' target='_blank'>防災科研</a>"
+    });
+
+    const overlays = {
+      "地理院地図": lyrGSI,
+      "Google高解像度": lyrGoogleHybrid,
+      "地理院写真2024年9月豪雨輪島東部": lyr20240923rain_wajimatobu_0924do_sokuho,
+      "地理院写真2024年9月豪雨輪島西部": lyr20240923rain_wajimaseibu_0924do_sokuho,
+      "地理院写真2024年9月豪雨輪島": lyr20240923rain_wajima_0923do_sokuho,
+      "地理院写真輪島東地区1月2日": lyrGSI_WajimaE240102,
+      "地理院写真輪島中地区1月5日": lyrGSI_WajimaM240105,
+      "地理院写真輪島中地区1月11日": lyrGSI_WajimaM240111,
+      "地理院写真輪島西地区1月11日": lyrGSI_WajimaW240111,
+      "地理院写真珠洲地区1月2日": lyrGSI_Suzu240102,
+      "地理院写真穴水地区1月5日": lyrGSI_Anamizu240105,
+      "地理院写真七尾地区1月5日": lyrGSI_Nanao240105,
+      "地理院写真七尾地区1月17日": lyrGSI_Nanao240117,
+      "国土地理院60年代写真": lyrGSI60th,
+      "能登飯田（5万分の1地質図）": geol50kLayer,
+      "地すべり地形": landslideLayer
+    };
+
+    // もし jsonHoukai 系が読み込まれていれば追加
+    try { if (window.jsonHoukai) overlays["国土地理院崩壊地1月2日珠洲輪島東"] = window.jsonHoukai; } catch(e) {}
+    try { if (window.jsonHoukai_wjc) overlays["国土地理院崩壊地1月6日珠洲輪島中央"] = window.jsonHoukai_wjc; } catch(e) {}
+    try { if (window.jsonHoukai_wjw) overlays["国土地理院崩壊地1月12日輪島西"] = window.jsonHoukai_wjw; } catch(e) {}
+
+    // レイヤーコントロールだけ右上に表示
+    L.control.layers(baseMaps, overlays, { collapsed: true, position: 'topright' }).addTo(map);
+
+    // 高さ変化に追従
+    addEventListener('orientationchange', () => setTimeout(() => map.invalidateSize(), 250));
+    addEventListener('resize', () => setTimeout(() => map.invalidateSize(), 250));
+  </script>
+</body>
+</html>
